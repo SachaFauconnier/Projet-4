@@ -8,6 +8,7 @@
 
         <div class="livre-detail__image">
             <img src="<?= $livre['image'] ?>" alt="<?= htmlspecialchars($livre['titre']) ?>">
+            
         </div>
 
         <div class="livre-detail__content">

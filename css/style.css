@@ -262,19 +262,20 @@ header > nav > a {
 
 /* Grille des livres */
 .derniersLivres {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
+    display: flex;
+    gap: 44px;
     max-width: 1100px;
     margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 
 /* Carte */
 .livre {
     background-color: #f3f1e9;
-    border-radius: 12px;
     overflow: hidden;
+    width: 22%;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -287,7 +288,7 @@ header > nav > a {
 /* Image */
 .livre-image {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 2 / 2;
     overflow: hidden;
 }
 
@@ -300,7 +301,7 @@ header > nav > a {
 
 /* Corps de la carte */
 .livre-body {
-    padding: 16px 18px 20px;
+    padding: 16px 19px 0px 10px;
 }
 
 /* Titre du livre */
@@ -310,6 +311,8 @@ header > nav > a {
     font-weight: 700;
     color: #1a1a1a;
     margin: 0 0 4px;
+    display: flex;
+    margin-top: 8px;
 }
 
 /* Auteur */
@@ -318,6 +321,9 @@ header > nav > a {
     color: #888;
     margin: 0 0 14px;
     font-weight: 400;
+    margin-top: 8px;
+    margin-bottom: 25px;
+
 }
 
 /* Vendu par */
@@ -326,6 +332,7 @@ header > nav > a {
     font-size: 0.75rem;
     color: #b0b0b0;
     font-style: italic;
+    margin-top: 20px;
 }
 
 /* Bouton */
@@ -587,13 +594,36 @@ header > nav > a {
     pointer-events: none;
 }
 
+.search__title {
+  font-size: 46px;
+}
+
 /* Grille des livres */
 .livres {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
+    display: flex;
+    gap: 44px;
     max-width: 1100px;
     margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.livre-image {
+    position: relative;
+}
+
+.badge-dispo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    background-color: #c46b64;
+    color: white;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 500;
 }
 
 

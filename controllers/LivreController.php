@@ -21,10 +21,20 @@ class LivreController
 public function showAllLivres(): void
 {
     $livreManager = new LivreManager();
-    $livres = $livreManager->getAllLivres(); 
+
+    // récupérer la recherche
+    $search = Utils::request("search");
+
+    if (!empty($search)) {
+        $livres = $livreManager->searchLivres($search);
+    } else {
+        $livres = $livreManager->getAllLivres();
+    }
 
     $view = new View("Tous les livres");
-    $view->render("livres", ['livres' => $livres]);
+    $view->render("Livres", [
+        'livres' => $livres
+    ]);
 }
 
 
@@ -52,24 +62,32 @@ public function showAllLivres(): void
 
     
 
-    /**
-     * Affiche le formulaire d'ajout d'un livre.
-     * @return void
-     */
-    public function addLivre() : void
-    {
-        $view = new View("Ajouter un livre");
-        $view->render("addLivre");
+/**
+ * Affiche le formulaire d'ajout d'un livre.
+ * @return void
+ */
+public function addLivre() : void
+{
+    $view = new View("Ajouter un livre");
+    $view->render("addLivre");
+}
+
+
+public function searchAjax(): void
+{
+    $search = Utils::request("search");
+
+    $livreManager = new LivreManager();
+
+    if (!empty($search)) {
+        $livres = $livreManager->searchLivres($search);
+    } else {
+        $livres = $livreManager->getAllLivres();
     }
 
-    /**
-     * Affiche la page "à propos".
-     * @return void
-     */
-    public function showApropos() {
-        $view = new View("A propos");
-        $view->render("apropos");
-    }
+    // on renvoie juste le HTML des livres
+    require 'views/templates/_livresList.php';
+}
 
 
 }

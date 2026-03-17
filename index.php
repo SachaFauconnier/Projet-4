@@ -26,7 +26,11 @@ try {
             $livreController->showLivre();
         break;
 
-                
+        case 'searchAjax':
+            $controller = new LivreController();
+            $controller->searchAjax();
+        break;
+                    
 
         case 'connectionForm':
             $userController = new UserController();

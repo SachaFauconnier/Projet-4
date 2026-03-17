@@ -1,0 +1,19 @@
+<?php foreach($livres as $livre): ?>
+    <article class="livre">
+
+        <a href="index.php?action=detaillivre&id=<?= $livre->getId() ?>">
+
+            <div class="livre-image">
+                <img src="<?= $livre->getImage() ?>">
+            </div>
+
+            <div class="livre-body">
+                <h2><?= htmlspecialchars($livre->getTitre()) ?></h2>
+                <p><?= htmlspecialchars($livre->getAuteur()) ?></p>
+                <p>Vendu par : <?= htmlspecialchars($livre->getPseudo() ?? 'Inconnu') ?></p>
+            </div>
+
+        </a>
+
+    </article>
+<?php endforeach; ?>

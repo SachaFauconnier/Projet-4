@@ -12,6 +12,8 @@ class Livre
     private string $date_modification;
     private $disponible;
 
+    private $pseudo;
+
     public function __construct(array $data)
     {
         $this->id = $data['id'];
@@ -23,6 +25,7 @@ class Livre
         $this->date_creation = $data['date_creation'];
         $this->date_modification = $data['date_modification'];
         $this->disponible = $data['disponible'];
+        $this->pseudo = $data['pseudo'] ?? null;
     }
 
     // ===== Getters =====
@@ -35,6 +38,7 @@ class Livre
     public function getDateCreation(): string { return $this->date_creation; }
     public function getDateModification(): string { return $this->date_modification; }
     public function getDisponible(): bool { return $this->disponible; }
+    public function getPseudo(): ?string{return $this->pseudo;}
 
     // Méthode pratique pour obtenir un résumé du contenu
     public function getContent(int $length = 200): string

@@ -135,4 +135,33 @@ class UserController
     Utils::redirect("connectionForm");
 }
 
+public function updateUser(): void
+{
+    if (empty($_SESSION['idUtilisateur'])) {
+        Utils::redirect("connectionForm");
+    }
+
+    $id = (int) $_SESSION['idUtilisateur'];
+    $email = trim(Utils::request("email", ""));
+    $pseudo = trim(Utils::request("pseudo", ""));
+    $password = Utils::request("password", "");
+
+    if (empty($email) || empty($pseudo)) {
+        throw new Exception("Email et pseudo obligatoires.");
+    }
+
+    $utilisateurManager = new UtilisateurManager();
+
+    $utilisateurExistant = $utilisateurManager->getUserByEmail($email);
+
+    if ($utilisateurExistant && $utilisateurExistant->getId() !== $id) {
+        throw new Exception("Cet email est déjà utilisé.");
+    }
+
+    $utilisateurManager->updateUtilisateur($id, $pseudo, $email, $password);
+
+    Utils::redirect("profile");
+}
+
+
 }

@@ -30,6 +30,10 @@ try {
             $controller = new LivreController();
             $controller->searchAjax();
         break;
+        case 'deleteLivre':
+            $livreController = new LivreController();
+            $livreController->deleteLivre();
+        break;
                     
 
         case 'connectionForm':
@@ -55,10 +59,14 @@ try {
             $userController->disconnectUser();
             break;  
 
-
         case 'profile':
             $userController = new UserController();
             $userController->showProfile();
+        break;
+
+        case 'updateUser':
+            $userController = new UserController();
+            $userController->updateUser();
         break;
 
 

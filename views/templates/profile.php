@@ -13,11 +13,24 @@
         <hr>
 
         <h2><?= $utilisateur->getPseudo(); ?></h2>
-        <p>Membre depuis ... an</p>
+        <?php
+            $dateInscription = new DateTime($utilisateur->getDateCreation());
+            $today = new DateTime();
+
+            $years = $today->diff($dateInscription)->y;
+            ?>
+
+            <p>
+                Membre depuis 
+                <?= $years ?> 
+                <?= $years > 1 ? 'ans' : 'an' ?>
+        </p>
 
         <span class="library">
             Bibliothèque <br>
-            <?= count($livres); ?> livres
+            <?php $nbLivres = count($livres); ?>
+
+            <?= $nbLivres ?> <?= $nbLivres > 1 ? 'livres' : 'livre' ?>
         </span>
     </div>
 
@@ -71,7 +84,11 @@
 <tr>
 
 <td>
-<img src="<?= htmlspecialchars($livre->getImage() ?? 'images/default-book.jpg'); ?>" class="livre-profile-img">
+    <img 
+        src="<?= htmlspecialchars($livre->getImage() ?: 'https://cdn.paris.fr/paris/2021/10/04/huge-9394fb10a8ef69a7572e9e273521dfb8.jpeg') ?>" 
+        onerror="this.onerror=null;this.src='https://cdn.paris.fr/paris/2021/10/04/huge-9394fb10a8ef69a7572e9e273521dfb8.jpeg';"
+        alt="<?= htmlspecialchars($livre->getTitre()) ?>"class="livre-profile-img"
+    >
 </td>
 
 <td><?= $livre->getTitre(); ?></td>
@@ -89,8 +106,14 @@
 </td>
 
 <td class="actions">
-<a href="#">Éditer</a>
-<a href="#" class="delete">Supprimer</a>
+    <a href="#">Éditer</a>
+
+    <form action="index.php?action=deleteLivre" method="post" style="display:inline;">
+        <input type="hidden" name="id" value="<?= $livre->getId() ?>">
+        <button type="submit" class="delete" onclick="return confirm('Supprimer ce livre ?');">
+            Supprimer
+        </button>
+    </form>
 </td>
 
 </tr>

@@ -100,4 +100,13 @@ public function getLivresByUser(int $idUtilisateur): array
 
     return $livres;
 }
+
+public function deleteLivre(int $id): void
+{
+    $sql = "DELETE FROM livre WHERE id = :id";
+
+    $this->db->query($sql, [
+        'id' => $id
+    ]);
+}
 }

@@ -60,34 +60,36 @@ public function showAllLivres(): void
 }
 
 
-    
 
-/**
- * Affiche le formulaire d'ajout d'un livre.
- * @return void
- */
-public function addLivre() : void
+
+public function deleteLivre(): void
 {
-    $view = new View("Ajouter un livre");
-    $view->render("addLivre");
-}
-
-
-public function searchAjax(): void
-{
-    $search = Utils::request("search");
-
-    $livreManager = new LivreManager();
-
-    if (!empty($search)) {
-        $livres = $livreManager->searchLivres($search);
-    } else {
-        $livres = $livreManager->getAllLivres();
+    if (empty($_SESSION['idUtilisateur'])) {
+        throw new Exception("Utilisateur non connecté.");
     }
 
-    // on renvoie juste le HTML des livres
-    require 'views/templates/_livresList.php';
+    $id = (int) Utils::request("id");
+
+    if ($id <= 0) {
+        throw new Exception("ID invalide.");
+    }
+
+    $livreManager = new LivreManager();
+    $livre = $livreManager->getLivreById($id);
+
+    if (!$livre) {
+        throw new Exception("Livre introuvable.");
+    }
+
+    if ((int)$livre['utilisateur_id'] !== (int)$_SESSION['idUtilisateur']) {
+        throw new Exception("Action interdite.");
+    }
+
+    $livreManager->deleteLivre($id);
+
+    Utils::redirect("profile");
 }
+
 
 
 }

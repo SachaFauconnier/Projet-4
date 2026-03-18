@@ -48,9 +48,9 @@
                 </a>
             </div>
 
-            <a href="index.php?action=messagerie&id=<?= (int)$livre['utilisateur_id'] ?>" class="livre-detail__button">
-                Envoyer un message
-            </a>
+            <a href="index.php?action=messagerie&user=<?= (int)$livre['utilisateur_id'] ?>" class="livre-detail__button">
+    Envoyer un message
+</a>
 
         </div>
 

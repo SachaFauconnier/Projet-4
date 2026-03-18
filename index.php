@@ -44,6 +44,8 @@ try {
             $livreController->updateLivre();
             break;
 
+            
+
         case 'connectionForm':
             $userController = new UserController();
             $userController->displayConnectionForm();
@@ -78,7 +80,15 @@ try {
         break;
 
 
+        case 'messagerie':
+            $userController = new UserController();
+            $userController->showMessagerie();
+            break;
 
+        case 'sendMessage':
+            $userController = new UserController();
+            $userController->sendMessage();
+            break;
 
 
 

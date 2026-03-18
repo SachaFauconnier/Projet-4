@@ -166,4 +166,55 @@ public function updateUser(): void
 
 
 
+public function showMessagerie(): void
+{
+    if (empty($_SESSION['idUtilisateur'])) {
+        Utils::redirect("connectionForm");
+    }
+
+    $idUtilisateur = (int) $_SESSION['idUtilisateur'];
+    $otherUserId = (int) Utils::request("user", 0);
+
+    $messageManager = new MessageManager();
+    $utilisateurManager = new UtilisateurManager();
+
+    $conversations = $messageManager->getConversationsByUser($idUtilisateur);
+
+    $selectedUser = null;
+    $messages = [];
+
+    if ($otherUserId > 0) {
+        $selectedUser = $utilisateurManager->getUtilisateurById($otherUserId);
+        $messages = $messageManager->getMessagesBetweenUsers($idUtilisateur, $otherUserId);
+    }
+
+    $view = new View("Messagerie");
+    $view->render("messagerie", [
+        'conversations' => $conversations,
+        'selectedUser' => $selectedUser,
+        'messages' => $messages,
+        'idUtilisateur' => $idUtilisateur
+    ]);
+}
+
+public function sendMessage(): void
+{
+    if (empty($_SESSION['idUtilisateur'])) {
+        Utils::redirect("connectionForm");
+    }
+
+    $expediteurId = (int) $_SESSION['idUtilisateur'];
+    $destinataireId = (int) Utils::request("destinataire_id", 0);
+    $contenu = trim(Utils::request("contenu", ""));
+
+    if ($destinataireId <= 0 || empty($contenu)) {
+        throw new Exception("Message invalide.");
+    }
+
+    $messageManager = new MessageManager();
+    $messageManager->sendMessage($expediteurId, $destinataireId, $contenu);
+
+    Utils::redirect("messagerie&user=" . $destinataireId);
+}
+
 }

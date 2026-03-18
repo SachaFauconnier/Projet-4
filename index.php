@@ -34,7 +34,15 @@ try {
             $livreController = new LivreController();
             $livreController->deleteLivre();
         break;
-                    
+        case 'editLivre':
+            $livreController = new LivreController();
+            $livreController->showEditLivre();
+            break;
+
+        case 'updateLivre':
+            $livreController = new LivreController();
+            $livreController->updateLivre();
+            break;
 
         case 'connectionForm':
             $userController = new UserController();

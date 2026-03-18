@@ -106,7 +106,7 @@
 </td>
 
 <td class="actions">
-    <a href="#">Éditer</a>
+    <a href="index.php?action=editLivre&id=<?= $livre->getId() ?>">Éditer</a>
 
     <form action="index.php?action=deleteLivre" method="post" style="display:inline;">
         <input type="hidden" name="id" value="<?= $livre->getId() ?>">

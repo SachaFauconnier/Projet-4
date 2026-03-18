@@ -8,13 +8,17 @@ body {
     background-color: var(--backgroundColor);
 }
 
+main {
+  background-color: #f5f5f5;
+}
+
 h1 {
     display: flex;
-    justify-content: center;
     font-family: 'Qwitcher Grypen', cursive;
     font-style: italic;
     font-size: 80px;
     color: var(--titleColor);
+    text-align: center;
 }
 
 h2 {
@@ -550,9 +554,13 @@ header > nav > a {
 /* ============================================================================================ */
 /* === Header === */
 
+
+.form-Alllivres {
+  background-color: #faf9f7;
+}
+
 .search__container {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e5e5;
+    background-color: #faf9f7;
     padding: 16px 40px;
     display: flex;
     justify-content: space-between;
@@ -782,13 +790,19 @@ header > nav > a {
 
 
 /* ============================================================================================ */
-/* ============================= Connection ================================== */
+/* ============================= Connexion ================================== */
 /* ============================================================================================ */
 
 .Connection {
   display: flex;
   min-height: 100vh;
 }
+
+.Inscription {
+  display: flex;
+  min-height: 100vh;
+}
+
 
 .connection-form {
   flex: 1;
@@ -933,6 +947,7 @@ header > nav > a {
 background: #fff;
     border-radius: 10px;
     padding: 111px;
+    padding-top: 14%;
     width: 534px;
     text-align: center;
     display: flex;
@@ -1031,8 +1046,8 @@ background: #fff;
   background: #fff;
   color: #4a9b8c;
   border: 2px solid #4a9b8c;
-  padding: 12px 35px;
-  border-radius: 25px;
+  padding: 19px 28px;
+  border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
   margin-top: 10px;
@@ -1080,7 +1095,7 @@ background: #fff;
 }
 
 .livre-profile-list tbody tr:nth-child(even) {
-  background: #fafafa;
+  background: #EDF2F6;
 }
 
 .livre-profile-list tbody td {
@@ -1105,16 +1120,16 @@ background: #fff;
 
 /* ===== DISPONIBILITE ===== */
 .available {
-  background: #e8f5e9;
-  color: #2e7d32;
+  background: #2e7d32;
+  color: #ffffff;
   padding: 5px 12px;
   border-radius: 15px;
   font-size: 11px;
 }
 
 .not-available {
-  background: #ffebee;
-  color: #c62828;
+  background: #c62828;
+  color: #ffffff;
   padding: 5px 12px;
   border-radius: 15px;
   font-size: 11px;
@@ -1137,4 +1152,109 @@ background: #fff;
   .account-top {
     flex-direction: column;
   }
+}
+
+
+
+/* ============================================================================================ */
+/* ============================= Edit livre ================================== */
+/* ============================================================================================ */
+
+
+.edit-livre {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.edit-livre__back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.edit-livre__title {
+    margin-bottom: 24px;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.edit-livre__card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 45px;
+}
+
+.edit-livre__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.edit-livre__label,
+.edit-livre__small-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #777;
+}
+
+.edit-livre__image {
+    width: 100%;
+    max-width: 380px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.edit-livre__left input,
+.edit-livre__right input,
+.edit-livre__right textarea,
+.edit-livre__right select {
+    width: 100%;
+    border: none;
+    background: #eef2f5;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 14px;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+}
+
+.edit-livre__right textarea {
+    resize: vertical;
+    min-height: 180px;
+}
+
+.edit-livre__button {
+    margin-top: 8px;
+    width: 320px;
+    height: 50px;
+    border: none;
+    border-radius: 8px;
+    background: #00b86b;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.edit-livre__button:hover {
+    background: #006D41;
+}
+
+.hidden {
+    display: none;
+}
+
+.edit-livre__small-label {
+    cursor: pointer;
+    color: #666;
+}
+
+.edit-livre__small-label:hover {
+    text-decoration: underline;
 }

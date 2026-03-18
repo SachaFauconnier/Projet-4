@@ -109,4 +109,34 @@ public function deleteLivre(int $id): void
         'id' => $id
     ]);
 }
+
+
+
+public function updateLivre(
+    int $id,
+    string $titre,
+    string $auteur,
+    string $description,
+    string $image,
+    int $disponible
+): void
+{
+    $sql = "UPDATE livre
+            SET titre = :titre,
+                auteur = :auteur,
+                description = :description,
+                image = :image,
+                disponible = :disponible,
+                date_modification = NOW()
+            WHERE id = :id";
+
+    $this->db->query($sql, [
+        'id' => $id,
+        'titre' => $titre,
+        'auteur' => $auteur,
+        'description' => $description,
+        'image' => $image,
+        'disponible' => $disponible
+    ]);
+}
 }

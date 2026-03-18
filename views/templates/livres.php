@@ -2,7 +2,7 @@
 
 ?>
 
-<form method="get" action="index.php">
+<form method="get" action="index.php"  class="form-Alllivres">
     <div class="search__container">
         <h2 class="search__title">Nos livres à l'échange</h2>
 

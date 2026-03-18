@@ -32,7 +32,7 @@
 
 <!-- Section livres -->
 <section class="section-livres">
-    <h1 class="section-title">Les derniers livres ajoutés</h1>
+    <h2 class="section-title">Les derniers livres ajoutés</h2>
 
     <div class="derniersLivres">
         <?php foreach($livres as $livre): ?>

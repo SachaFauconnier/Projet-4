@@ -163,7 +163,30 @@ public function updateUser(): void
     Utils::redirect("profile");
 }
 
+public function showPublicProfile(): void
+{
+    $id = (int) Utils::request("id", 0);
 
+    if ($id <= 0) {
+        throw new Exception("Utilisateur introuvable.");
+    }
+
+    $utilisateurManager = new UtilisateurManager();
+    $utilisateur = $utilisateurManager->getUtilisateurById($id);
+
+    if (!$utilisateur) {
+        throw new Exception("Utilisateur introuvable.");
+    }
+
+    $livreManager = new LivreManager();
+    $livres = $livreManager->getLivresByUser($id);
+
+    $view = new View("Profil utilisateur");
+    $view->render("publicProfile", [
+        'utilisateur' => $utilisateur,
+        'livres' => $livres
+    ]);
+}
 
 
 public function showMessagerie(): void

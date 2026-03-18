@@ -36,21 +36,21 @@
             <div class="livre-detail__block">
                 <p class="livre-detail__label">PROPRIÉTAIRE</p>
 
-                <a href="" class="livre-detail__owner">
-                    <img 
-                        src="https://i.ibb.co/fVbxwgSY/Mask-group.png" 
-                        alt="Photo du propriétaire"
-                        class="livre-detail__owner-avatar"
-                    >
-                    <span class="livre-detail__owner-name">
-                        <?= htmlspecialchars($livre['pseudo']) ?>
-                    </span>
-                </a>
+                <a href="index.php?action=userProfile&id=<?= (int)$livre['utilisateur_id'] ?>" class="livre-detail__owner">
+                <img 
+                    src="https://i.ibb.co/fVbxwgSY/Mask-group.png" 
+                    alt="Photo du propriétaire"
+                    class="livre-detail__owner-avatar"
+                >
+                <span class="livre-detail__owner-name">
+                    <?= htmlspecialchars($livre['pseudo']) ?>
+                </span>
+            </a>
             </div>
 
             <a href="index.php?action=messagerie&user=<?= (int)$livre['utilisateur_id'] ?>" class="livre-detail__button">
-    Envoyer un message
-</a>
+            Envoyer un message
+        </a>
 
         </div>
 

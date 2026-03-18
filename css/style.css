@@ -1432,3 +1432,125 @@ background: #fff;
     color: #888;
     font-size: 16px;
 }
+
+
+
+.public-profile {
+    padding: 40px 0 60px;
+    background: #f6f5f3;
+    min-height: 100vh;
+}
+
+.public-profile__container {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+.public-profile__card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 36px 24px;
+    text-align: center;
+}
+
+.public-profile__avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 22px;
+}
+
+.public-profile__name {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 0 0 8px;
+}
+
+.public-profile__since {
+    font-size: 14px;
+    color: #9b9b9b;
+    margin: 0 0 20px;
+}
+
+.public-profile__library {
+    margin-bottom: 28px;
+    color: #444;
+    font-size: 14px;
+}
+
+.public-profile__library-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+    color: #7d7d7d;
+}
+
+.public-profile__message-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 48px;
+    border: 1px solid #00b86b;
+    border-radius: 8px;
+    color: #00b86b;
+    text-decoration: none;
+    font-weight: 600;
+    background: #fff;
+}
+
+.public-profile__message-btn:hover {
+    background: #00b86b;
+    color: #fff;
+}
+
+.public-profile__books {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.public-profile__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.public-profile__table th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #666;
+    padding: 18px 24px;
+    background: #fff;
+}
+
+.public-profile__table td {
+    padding: 18px 24px;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.public-profile__table tbody tr:nth-child(even) {
+    background: #f2f6f8;
+}
+
+.public-profile__book-img {
+    width: 54px;
+    height: 74px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.public-profile__desc {
+    max-width: 280px;
+    color: #555;
+    line-height: 1.35;
+}

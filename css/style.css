@@ -52,84 +52,114 @@ a {
 /**
  * Header
  */
-header {
+.navbar {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 30px;
-    background-color: var(--headerPaleColor); 
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+    font-family: Arial, sans-serif;
 }
 
-header > nav {
+.navbar__left,
+.navbar__right {
     display: flex;
-    justify-content: flex-end;
-    background-color: var(--headerColor);
+    align-items: center;
+    gap: 25px;
 }
 
-header > nav > a {
-    padding: 20px;
-    text-transform: uppercase;
-    font-size: 16px;
-    color: black;
+.navbar__logo {
+    width: 40px;
+    height: 40px;
+    background: #1aa260;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 18px;
 }
 
-.navbar-separate {
-    background: azure;
-    display: block;
-    width: 50%;
+.navbar__brand {
+    font-weight: bold;
+    color: #1aa260;
+    font-size: 18px;
+    margin-right: 20px;
 }
 
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
 
+.navbar a:hover {
+    color: #1aa260;
+}
+.badge {
+    background: black;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    padding: 3px 6px;
+    margin-left: 5px;
+}
 
 /* ================================
    Footer
    ================================ */
 .site-footer {
-  background-color: #f5f5f3;
-    border-top: 1px solid #e0ddd8;
-    padding: 20px 40px;
-
+    background: #f5f5f3;
+    padding: 18px 40px;
+    border-top: 1px solid #e7e7e7;
+    font-family: Arial, sans-serif;
 }
 
 .footer-content {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    gap: 50px;
 }
 
 .footer-links {
     display: flex;
-    gap: 28px;
+    align-items: center;
+    gap: 35px;
 }
 
 .footer-links a {
-    font-size: 0.78rem;
-    color: #888;
     text-decoration: none;
-    transition: color 0.2s ease;
+    color: #4b4b4b;
+    font-size: 14px;
 }
 
 .footer-links a:hover {
-    color: #1a1a1a;
+    color: #0aa35c;
 }
 
 .footer-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 0.78rem;
-    color: #888;
+    gap: 40px;
+}
+
+.footer-name {
+    color: #4b4b4b;
+    font-size: 14px;
 }
 
 .footer-logo {
-    font-family: 'Georgia', serif;
-    font-size: 1.1rem;
+    color: #0aa35c;
+    font-size: 34px;
+    font-family: Georgia, serif;
     font-weight: 700;
-    color: #1a1a1a;
+    line-height: 1;
 }
-
 /* ================================
    Responsive
    ================================ */
@@ -220,7 +250,7 @@ header > nav > a {
 }
 
 .btn--primary:hover {
-  background-color: #27a65c;
+  background-color: #006D41;
   transform: translateY(-2px);
 }
 
@@ -362,7 +392,7 @@ header > nav > a {
 }
 
 .btn-voir-tous:hover {
-    background-color: #27ae60;
+    background-color: #006D41;
 }
 
 /* Responsive */
@@ -447,7 +477,7 @@ header > nav > a {
 }
 
 .btn-voir-tous-outline:hover {
-    background-color: #2ecc71;
+    background-color: #006D41;
     color: #ffffff;
 }
 
@@ -742,6 +772,7 @@ header > nav > a {
 
 .livre-detail__button {
     margin-top: auto;
+    margin-bottom: 50px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -758,7 +789,7 @@ header > nav > a {
 }
 
 .livre-detail__button:hover {
-    background: #00985a;
+    background: #006D41;
 }
 
 @media screen and (max-width: 1100px) {
@@ -873,7 +904,7 @@ header > nav > a {
 }
 
 .submit:hover {
-  background-color: #16a34a;
+  background-color: #006D41;
 }
 
 .inscription {
@@ -889,7 +920,7 @@ header > nav > a {
 }
 
 .inscription-btn:hover {
-  color: #22c55e;
+  color: #006D41;
 }
 
 .Connexion > img {
@@ -1059,7 +1090,7 @@ background: #fff;
 }
 
 .profile-form .save:hover {
-  background: #4a9b8c;
+  background: #006D41;
   color: #fff;
 }
 
@@ -1511,7 +1542,7 @@ background: #fff;
 }
 
 .public-profile__message-btn:hover {
-    background: #00b86b;
+    background: #006D41;
     color: #fff;
 }
 

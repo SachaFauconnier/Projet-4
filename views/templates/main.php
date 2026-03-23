@@ -19,23 +19,41 @@
 
 <body> 
 <header> 
-<nav>
-    <a href="index.php">Accueil</a>
-    <a href="index.php?action=All-livres">Nos livres à l'échange</a>
+<nav class="navbar">
 
-    <div class="navbar-separate"></div>
+    <div class="navbar__left">
+        <div class="navbar__logo">TT</div>
+        <span class="navbar__brand">Tom Troc</span>
 
-<?php if (!empty($_SESSION['idUtilisateur'])): ?>
+        <a href="index.php">Accueil</a>
+        <a href="index.php?action=All-livres">Nos livres à l'échange</a>
+    </div>
 
-    <a href="index.php?action=messagerie">Messagerie</a>
-    <a href="index.php?action=profile">Mon compte</a>
-    <a href="index.php?action=disconnectUser">Déconnexion</a>
+    <div class="navbar__right">
 
-<?php else: ?>
+        <?php if (!empty($_SESSION['idUtilisateur'])): ?>
 
-    <a href="index.php?action=connectionForm">Connexion</a>
+            <a href="index.php?action=messagerie" class="navbar__link">
+                💬 Messagerie <span class="badge">1</span>
+            </a>
 
-<?php endif; ?>
+            <a href="index.php?action=profile" class="navbar__link">
+                👤 Mon compte
+            </a>
+
+            <a href="index.php?action=disconnectUser" class="navbar__link">
+                Déconnexion
+            </a>
+
+        <?php else: ?>
+
+            <a href="index.php?action=connectionForm" class="navbar__link">
+                Connexion
+            </a>
+
+        <?php endif; ?>
+
+    </div>
 
 </nav>
     
@@ -52,8 +70,9 @@
             <a href="#">Politique de confidentialité</a>
             <a href="#">Mentions légales</a>
         </nav>
+
         <div class="footer-brand">
-            <span>Tom Troc&copy;</span>
+            <span class="footer-name">Tom Troc&copy;</span>
             <span class="footer-logo">TT</span>
         </div>
     </div>

@@ -159,6 +159,19 @@ public function updateLivre(): void
     Utils::redirect("profile");
 }
 
+public function searchAjax(): void
+{
+    $search = Utils::request("search", "");
 
+    $livreManager = new LivreManager();
+
+    if (!empty($search)) {
+        $livres = $livreManager->searchLivres($search);
+    } else {
+        $livres = $livreManager->getAllLivres();
+    }
+
+    require 'views/templates/_livresList.php';
+}
 
 }

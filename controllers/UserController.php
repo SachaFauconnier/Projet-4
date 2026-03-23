@@ -57,11 +57,15 @@ class UserController
      */
     public function connectUser(): void
     {
-        $email = Utils::request("email");
-        $password = Utils::request("password");
+        $email = trim(Utils::request("email", ""));
+        $password = Utils::request("password", "");
 
         if (empty($email) || empty($password)) {
             throw new Exception("Tous les champs sont obligatoires.");
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Adresse email invalide.");
         }
 
         $utilisateurManager = new UtilisateurManager();
@@ -71,11 +75,11 @@ class UserController
             throw new Exception("Utilisateur inexistant.");
         }
 
-        if ($password !== $utilisateur->getMot_de_passe()) {
+        if (!password_verify($password, $utilisateur->getMot_de_passe())) {
             throw new Exception("Mot de passe incorrect.");
         }
 
-        // stocker seulement l'id
+        session_regenerate_id(true);
         $_SESSION['idUtilisateur'] = $utilisateur->getId();
 
         Utils::redirect("home");
@@ -117,127 +121,145 @@ class UserController
     }
 
     public function createUser(): void
-{
-    $pseudo = Utils::request("login");
-    $email = Utils::request("email");
-    $password = Utils::request("password");
+    {
+        $pseudo = trim(Utils::request("login", ""));
+        $email = trim(Utils::request("email", ""));
+        $password = Utils::request("password", "");
 
-    if (empty($pseudo) || empty($email) || empty($password)) {
-        throw new Exception("Tous les champs sont obligatoires.");
-    }
+        if (empty($pseudo) || empty($email) || empty($password)) {
+            throw new Exception("Tous les champs sont obligatoires.");
+        }
 
-    $utilisateurManager = new UtilisateurManager();
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Adresse email invalide.");
+        }
 
-    // insertion dans la base
-    $utilisateurManager->insertUtilisateur($pseudo, $email, $password);
+        $utilisateurManager = new UtilisateurManager();
 
-    // redirection vers la page de connexion
-    Utils::redirect("connectionForm");
-}
+        $utilisateurExistant = $utilisateurManager->getUserByEmail($email);
+        if ($utilisateurExistant) {
+            throw new Exception("Cet email est déjà utilisé.");
+        }
 
-public function updateUser(): void
-{
-    if (empty($_SESSION['idUtilisateur'])) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        $utilisateurManager->insertUtilisateur($pseudo, $email, $hashedPassword);
+
         Utils::redirect("connectionForm");
     }
 
-    $id = (int) $_SESSION['idUtilisateur'];
-    $email = trim(Utils::request("email", ""));
-    $pseudo = trim(Utils::request("pseudo", ""));
-    $password = Utils::request("password", "");
+    public function updateUser(): void
+    {
+        if (empty($_SESSION['idUtilisateur'])) {
+            Utils::redirect("connectionForm");
+        }
 
-    if (empty($email) || empty($pseudo)) {
-        throw new Exception("Email et pseudo obligatoires.");
+        $id = (int) $_SESSION['idUtilisateur'];
+        $email = trim(Utils::request("email", ""));
+        $pseudo = trim(Utils::request("pseudo", ""));
+        $password = Utils::request("password", "");
+
+        if (empty($email) || empty($pseudo)) {
+            throw new Exception("Email et pseudo obligatoires.");
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Adresse email invalide.");
+        }
+
+        $utilisateurManager = new UtilisateurManager();
+
+        $utilisateurExistant = $utilisateurManager->getUserByEmail($email);
+
+        if ($utilisateurExistant && $utilisateurExistant->getId() !== $id) {
+            throw new Exception("Cet email est déjà utilisé.");
+        }
+
+        if (!empty($password)) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $utilisateurManager->updateUtilisateurAvecMotDePasse($id, $pseudo, $email, $hashedPassword);
+        } else {
+            $utilisateurManager->updateUtilisateurSansMotDePasse($id, $pseudo, $email);
+        }
+
+        Utils::redirect("profile");
     }
 
-    $utilisateurManager = new UtilisateurManager();
+    public function showPublicProfile(): void
+    {
+        $id = (int) Utils::request("id", 0);
 
-    $utilisateurExistant = $utilisateurManager->getUserByEmail($email);
+        if ($id <= 0) {
+            throw new Exception("Utilisateur introuvable.");
+        }
 
-    if ($utilisateurExistant && $utilisateurExistant->getId() !== $id) {
-        throw new Exception("Cet email est déjà utilisé.");
+        $utilisateurManager = new UtilisateurManager();
+        $utilisateur = $utilisateurManager->getUtilisateurById($id);
+
+        if (!$utilisateur) {
+            throw new Exception("Utilisateur introuvable.");
+        }
+
+        $livreManager = new LivreManager();
+        $livres = $livreManager->getLivresByUser($id);
+
+        $view = new View("Profil utilisateur");
+        $view->render("publicProfile", [
+            'utilisateur' => $utilisateur,
+            'livres' => $livres
+        ]);
     }
 
-    $utilisateurManager->updateUtilisateur($id, $pseudo, $email, $password);
 
-    Utils::redirect("profile");
-}
+    public function showMessagerie(): void
+    {
+        if (empty($_SESSION['idUtilisateur'])) {
+            Utils::redirect("connectionForm");
+        }
 
-public function showPublicProfile(): void
-{
-    $id = (int) Utils::request("id", 0);
+        $idUtilisateur = (int) $_SESSION['idUtilisateur'];
+        $otherUserId = (int) Utils::request("user", 0);
 
-    if ($id <= 0) {
-        throw new Exception("Utilisateur introuvable.");
+        $messageManager = new MessageManager();
+        $utilisateurManager = new UtilisateurManager();
+
+        $conversations = $messageManager->getConversationsByUser($idUtilisateur);
+
+        $selectedUser = null;
+        $messages = [];
+
+        if ($otherUserId > 0) {
+            $selectedUser = $utilisateurManager->getUtilisateurById($otherUserId);
+            $messages = $messageManager->getMessagesBetweenUsers($idUtilisateur, $otherUserId);
+        }
+
+        $view = new View("Messagerie");
+        $view->render("messagerie", [
+            'conversations' => $conversations,
+            'selectedUser' => $selectedUser,
+            'messages' => $messages,
+            'idUtilisateur' => $idUtilisateur
+        ]);
     }
 
-    $utilisateurManager = new UtilisateurManager();
-    $utilisateur = $utilisateurManager->getUtilisateurById($id);
+    public function sendMessage(): void
+    {
+        if (empty($_SESSION['idUtilisateur'])) {
+            Utils::redirect("connectionForm");
+        }
 
-    if (!$utilisateur) {
-        throw new Exception("Utilisateur introuvable.");
+        $expediteurId = (int) $_SESSION['idUtilisateur'];
+        $destinataireId = (int) Utils::request("destinataire_id", 0);
+        $contenu = trim(Utils::request("contenu", ""));
+
+        if ($destinataireId <= 0 || empty($contenu)) {
+            throw new Exception("Message invalide.");
+        }
+
+        $messageManager = new MessageManager();
+        $messageManager->sendMessage($expediteurId, $destinataireId, $contenu);
+
+        Utils::redirect("messagerie&user=" . $destinataireId);
     }
-
-    $livreManager = new LivreManager();
-    $livres = $livreManager->getLivresByUser($id);
-
-    $view = new View("Profil utilisateur");
-    $view->render("publicProfile", [
-        'utilisateur' => $utilisateur,
-        'livres' => $livres
-    ]);
-}
-
-
-public function showMessagerie(): void
-{
-    if (empty($_SESSION['idUtilisateur'])) {
-        Utils::redirect("connectionForm");
-    }
-
-    $idUtilisateur = (int) $_SESSION['idUtilisateur'];
-    $otherUserId = (int) Utils::request("user", 0);
-
-    $messageManager = new MessageManager();
-    $utilisateurManager = new UtilisateurManager();
-
-    $conversations = $messageManager->getConversationsByUser($idUtilisateur);
-
-    $selectedUser = null;
-    $messages = [];
-
-    if ($otherUserId > 0) {
-        $selectedUser = $utilisateurManager->getUtilisateurById($otherUserId);
-        $messages = $messageManager->getMessagesBetweenUsers($idUtilisateur, $otherUserId);
-    }
-
-    $view = new View("Messagerie");
-    $view->render("messagerie", [
-        'conversations' => $conversations,
-        'selectedUser' => $selectedUser,
-        'messages' => $messages,
-        'idUtilisateur' => $idUtilisateur
-    ]);
-}
-
-public function sendMessage(): void
-{
-    if (empty($_SESSION['idUtilisateur'])) {
-        Utils::redirect("connectionForm");
-    }
-
-    $expediteurId = (int) $_SESSION['idUtilisateur'];
-    $destinataireId = (int) Utils::request("destinataire_id", 0);
-    $contenu = trim(Utils::request("contenu", ""));
-
-    if ($destinataireId <= 0 || empty($contenu)) {
-        throw new Exception("Message invalide.");
-    }
-
-    $messageManager = new MessageManager();
-    $messageManager->sendMessage($expediteurId, $destinataireId, $contenu);
-
-    Utils::redirect("messagerie&user=" . $destinataireId);
-}
 
 }

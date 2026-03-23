@@ -43,20 +43,35 @@ class UtilisateurManager extends AbstractEntityManager
         ]);
     }
 
-    public function updateUtilisateur(int $id, string $pseudo, string $email, string $password): void
-{
-    $sql = "UPDATE utilisateur
-            SET pseudo = :pseudo,
-                email = :email,
-                mot_de_passe = :password,
-                date_modification = NOW()
-            WHERE id = :id";
+    public function updateUtilisateurAvecMotDePasse(int $id, string $pseudo, string $email, string $password): void
+    {
+        $sql = "UPDATE utilisateur
+                SET pseudo = :pseudo,
+                    email = :email,
+                    mot_de_passe = :password,
+                    date_modification = NOW()
+                WHERE id = :id";
 
-    $this->db->query($sql, [
-        'id' => $id,
-        'pseudo' => $pseudo,
-        'email' => $email,
-        'password' => $password
-    ]);
-}
+        $this->db->query($sql, [
+            'id' => $id,
+            'pseudo' => $pseudo,
+            'email' => $email,
+            'password' => $password
+        ]);
+    }
+
+    public function updateUtilisateurSansMotDePasse(int $id, string $pseudo, string $email): void
+    {
+        $sql = "UPDATE utilisateur
+                SET pseudo = :pseudo,
+                    email = :email,
+                    date_modification = NOW()
+                WHERE id = :id";
+
+        $this->db->query($sql, [
+            'id' => $id,
+            'pseudo' => $pseudo,
+            'email' => $email
+        ]);
+    }
 }

@@ -1,6 +1,10 @@
 /**
  * Valeur par défaut pour les balises.
  */
+
+html {
+    scroll-behavior: smooth;
+}
 body {
     display: flex;
     flex-direction: column;

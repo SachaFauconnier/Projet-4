@@ -16,7 +16,7 @@
                 partage de connaissances et d’histoires à travers les livres.
             </p>
 
-            <a href="/books" class="btn btn--primary">
+            <a href="#section-livres" class="btn btn--primary">
                 Découvrir
             </a>
         </div>
@@ -31,7 +31,7 @@
 
 
 <!-- Section livres -->
-<section class="section-livres">
+<section class="section-livres" id="section-livres">
     <h2 class="section-title">Les derniers livres ajoutés</h2>
 
     <div class="derniersLivres">

@@ -77,7 +77,7 @@ Créer une base de données MySQL puis importer le fichier SQL du projet.
 
 ### 3. Configurer la connexion à la base de données
 
-Créer un fichier `config.php` à la racine du projet ou dans le dossier prévu à cet effet :
+Créer un fichier `config.php` dans le dossier prévu à cet effet :
 
 ```php
 <?php
@@ -90,13 +90,6 @@ return [
     'db_pass' => '',
 ];
 ```
-
-Ajouter ce fichier dans le `.gitignore` :
-
-```gitignore
-config.php
-```
-
 ### 4. Lancer le projet
 
 - Démarrer **Apache** et **MySQL** avec XAMPP

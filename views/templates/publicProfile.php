@@ -3,8 +3,9 @@
     <div class="public-profile__container">
 
         <div class="public-profile__card">
-            <img 
-                src="https://i.ibb.co/fVbxwgSY/Mask-group.png" 
+           <img 
+                src="<?= htmlspecialchars($utilisateur->getProfileImageOrDefault()) ?>" 
+                onerror="this.onerror=null;this.src='https://i.ibb.co/fVbxwgSY/Mask-group.png';"
                 alt="Photo profil"
                 class="public-profile__avatar"
             >

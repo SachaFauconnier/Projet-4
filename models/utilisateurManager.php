@@ -43,12 +43,13 @@ class UtilisateurManager extends AbstractEntityManager
         ]);
     }
 
-    public function updateUtilisateurAvecMotDePasse(int $id, string $pseudo, string $email, string $password): void
+    public function updateUtilisateurAvecMotDePasse(int $id, string $pseudo, string $email, string $password, ?string $avatar): void
     {
         $sql = "UPDATE utilisateur
                 SET pseudo = :pseudo,
                     email = :email,
                     mot_de_passe = :password,
+                    profile_image = :avatar,
                     date_modification = NOW()
                 WHERE id = :id";
 
@@ -56,22 +57,37 @@ class UtilisateurManager extends AbstractEntityManager
             'id' => $id,
             'pseudo' => $pseudo,
             'email' => $email,
-            'password' => $password
+            'password' => $password,
+            'avatar' => $avatar
         ]);
     }
 
-    public function updateUtilisateurSansMotDePasse(int $id, string $pseudo, string $email): void
+    public function updateUtilisateurSansMotDePasse(int $id, string $pseudo, string $email, ?string $avatar): void
     {
         $sql = "UPDATE utilisateur
                 SET pseudo = :pseudo,
                     email = :email,
+                    profile_image = :avatar,
                     date_modification = NOW()
                 WHERE id = :id";
 
         $this->db->query($sql, [
             'id' => $id,
             'pseudo' => $pseudo,
-            'email' => $email
+            'email' => $email,
+            'avatar' => $avatar
+        ]);
+    }
+    public function updateProfileImage(int $id, string $profileImage): void
+    {
+        $sql = "UPDATE utilisateur
+                SET profile_image = :profile_image,
+                    date_modification = NOW()
+                WHERE id = :id";
+
+        $this->db->query($sql, [
+            'id' => $id,
+            'profile_image' => $profileImage
         ]);
     }
 }

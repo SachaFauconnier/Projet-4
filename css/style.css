@@ -18,7 +18,7 @@ main {
 
 h1 {
     display: flex;
-    font-family: 'Qwitcher Grypen', cursive;
+    font-family: 'Playfair Display', cursive;
     font-style: italic;
     font-size: 80px;
     color: var(--titleColor);
@@ -26,7 +26,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Georgia', serif;
+    font-family: 'Playfair Display';
     font-size: 1.8rem;
     font-weight: 400;
     text-align: center;
@@ -87,6 +87,7 @@ a {
     color: #1aa260;
     font-size: 18px;
     margin-right: 20px;
+    font-family: 'Playfair Display';
 }
 
 .navbar a {
@@ -419,8 +420,7 @@ a {
 }
 
 .comment-title {
-    font-family: 'Georgia', serif;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 400;
     color: #1a1a1a;
     margin: 0 0 20px;
@@ -542,11 +542,10 @@ a {
 }
 
 .valeurs-title {
-    font-family: 'Georgia', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 400;
     color: #1a1a1a;
-    margin: 0 0 24px;
+    margin: 0 0 20px;
 }
 
 .valeurs-texte p {
@@ -706,7 +705,6 @@ a {
 }
 
 .livre-detail__title {
-    font-family: Georgia, serif;
     font-size: 3.5rem;
     font-weight: 500;
     line-height: 1.1;
@@ -854,8 +852,7 @@ a {
 }
 
 .foldedCorner h2 {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 400;
   color: #1a1a1a;
   margin-bottom: 2.5rem;
@@ -1007,7 +1004,6 @@ background: #fff;
   font-size: 13px;
   text-decoration: none;
   cursor: pointer;
-  margin-bottom: 20px;
 }
 
 .profile-card hr {
@@ -1017,7 +1013,7 @@ background: #fff;
 }
 
 .profile-card h2 {
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 500;
   margin-bottom: 5px;
 }
@@ -1155,7 +1151,7 @@ background: #fff;
 
 /* ===== DISPONIBILITE ===== */
 .available {
-  background: #2e7d32;
+  background: #6DC5A1;
   color: #ffffff;
   padding: 5px 12px;
   border-radius: 15px;
@@ -1163,7 +1159,7 @@ background: #fff;
 }
 
 .not-available {
-  background: #c62828;
+  background: #C56D6D;
   color: #ffffff;
   padding: 5px 12px;
   border-radius: 15px;
@@ -1179,7 +1175,10 @@ background: #fff;
 }
 
 .actions .delete {
-  color: #e57373;
+    text-decoration: underline;
+    color: #e57373;
+    background: none;
+    border: none;
 }
 
 /* ===== RESPONSIVE ===== */

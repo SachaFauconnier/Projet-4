@@ -82,6 +82,10 @@ try {
             $userController = new UserController();
             $userController->showPublicProfile();
         break;
+        case 'updateProfileImage':
+            $userController = new UserController();
+            $userController->updateProfileImage();
+        break;
 
 
         case 'messagerie':

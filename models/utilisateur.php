@@ -1,6 +1,6 @@
 <?php
 
-class utilisateur
+class Utilisateur
 {
     private int $id;
     private ?string $pseudo;
@@ -11,6 +11,7 @@ class utilisateur
     private string $biographie;
     private string $date_creation;
     private string $date_modification;
+    private ?string $profileImage;
 
     public function __construct(array $data)
     {
@@ -18,15 +19,14 @@ class utilisateur
         $this->pseudo = $data['pseudo'] ?? null;
         $this->email = $data['email'] ?? null;
         $this->mot_de_passe = $data['mot_de_passe'] ?? null;
-
         $this->prenom = $data['prenom'] ?? '';
         $this->nom = $data['nom'] ?? '';
         $this->biographie = $data['biographie'] ?? '';
         $this->date_creation = $data['date_creation'] ?? '';
         $this->date_modification = $data['date_modification'] ?? '';
+        $this->profileImage = $data['profile_image'] ?? null;
     }
 
-    // ===== Getters =====
     public function getId(): int { return $this->id; }
     public function getPseudo(): ?string { return $this->pseudo; }
     public function getEmail(): ?string { return $this->email; }
@@ -37,10 +37,20 @@ class utilisateur
     public function getDateCreation(): string { return $this->date_creation; }
     public function getDateModification(): string { return $this->date_modification; }
 
-    // Méthode pratique pour obtenir un résumé du contenu
+    public function getProfileImage(): ?string
+    {
+        return $this->profileImage;
+    }
+
+    public function getProfileImageOrDefault(): string
+    {
+        return !empty($this->profileImage)
+            ? $this->profileImage
+            : 'https://i.ibb.co/fVbxwgSY/Mask-group.png';
+    }
+
     public function getContent(int $length = 200): string
     {
         return substr($this->biographie ?? '', 0, $length);
     }
-
 }

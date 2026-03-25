@@ -38,10 +38,13 @@
 
                 <a href="index.php?action=userProfile&id=<?= (int)$livre['utilisateur_id'] ?>" class="livre-detail__owner">
                 <img 
-                    src="https://i.ibb.co/fVbxwgSY/Mask-group.png" 
+                    src="<?= htmlspecialchars(!empty($livre['profile_image']) ? $livre['profile_image'] : 'https://i.ibb.co/fVbxwgSY/Mask-group.png') ?>"
+                    onerror="this.onerror=null;this.src='https://i.ibb.co/fVbxwgSY/Mask-group.png';"
                     alt="Photo du propriétaire"
                     class="livre-detail__owner-avatar"
                 >
+
+                
                 <span class="livre-detail__owner-name">
                     <?= htmlspecialchars($livre['pseudo']) ?>
                 </span>

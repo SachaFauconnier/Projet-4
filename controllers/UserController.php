@@ -150,39 +150,48 @@ class UserController
 
     public function updateUser(): void
     {
-        if (empty($_SESSION['idUtilisateur'])) {
-            Utils::redirect("connectionForm");
-        }
+    if (empty($_SESSION['idUtilisateur'])) {
+        Utils::redirect("connectionForm");
+    }
 
-        $id = (int) $_SESSION['idUtilisateur'];
-        $email = trim(Utils::request("email", ""));
-        $pseudo = trim(Utils::request("pseudo", ""));
-        $password = Utils::request("password", "");
+    $id = (int) $_SESSION['idUtilisateur'];
+    $email = trim(Utils::request("email", ""));
+    $pseudo = trim(Utils::request("pseudo", ""));
+    $password = Utils::request("password", "");
+    $avatar = trim(Utils::request("avatar", ""));
 
-        if (empty($email) || empty($pseudo)) {
-            throw new Exception("Email et pseudo obligatoires.");
-        }
+    if (empty($email) || empty($pseudo)) {
+        throw new Exception("Email et pseudo obligatoires.");
+    }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Adresse email invalide.");
-        }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new Exception("Adresse email invalide.");
+    }
 
-        $utilisateurManager = new UtilisateurManager();
+    if (!empty($avatar) && !filter_var($avatar, FILTER_VALIDATE_URL)) {
+        throw new Exception("URL de l'image invalide.");
+    }
 
-        $utilisateurExistant = $utilisateurManager->getUserByEmail($email);
+    if (empty($avatar)) {
+        $avatar = null;
+    }
 
-        if ($utilisateurExistant && $utilisateurExistant->getId() !== $id) {
-            throw new Exception("Cet email est déjà utilisé.");
-        }
+    $utilisateurManager = new UtilisateurManager();
 
-        if (!empty($password)) {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $utilisateurManager->updateUtilisateurAvecMotDePasse($id, $pseudo, $email, $hashedPassword);
-        } else {
-            $utilisateurManager->updateUtilisateurSansMotDePasse($id, $pseudo, $email);
-        }
+    $utilisateurExistant = $utilisateurManager->getUserByEmail($email);
 
-        Utils::redirect("profile");
+    if ($utilisateurExistant && $utilisateurExistant->getId() !== $id) {
+        throw new Exception("Cet email est déjà utilisé.");
+    }
+
+    if (!empty($password)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $utilisateurManager->updateUtilisateurAvecMotDePasse($id, $pseudo, $email, $hashedPassword, $avatar);
+    } else {
+        $utilisateurManager->updateUtilisateurSansMotDePasse($id, $pseudo, $email, $avatar);
+    }
+
+    Utils::redirect("profile");
     }
 
     public function showPublicProfile(): void
@@ -261,5 +270,7 @@ class UserController
 
         Utils::redirect("messagerie&user=" . $destinataireId);
     }
+
+    
 
 }

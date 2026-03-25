@@ -30,9 +30,9 @@ class LivreManager extends AbstractEntityManager
      */
    public function getLivreById(int $id) : ?array
 {
-    $sql = "SELECT livre.*, utilisateur.pseudo 
+    $sql = "SELECT livre.*, utilisateur.pseudo, utilisateur.profile_image
             FROM livre
-            JOIN utilisateur ON livre.utilisateur_id = utilisateur.id
+            JOIN utilisateur ON utilisateur.id = livre.utilisateur_id
             WHERE livre.id = :id";
 
     $result = $this->db->query($sql, ['id' => $id]);

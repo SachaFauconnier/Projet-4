@@ -1,5 +1,7 @@
 <?php
 
+
+
 require_once 'config/config.php';
 require_once 'config/autoload.php';
 
@@ -17,11 +19,11 @@ try {
             $livreController->showHome();
         break;
 
-                case 'All-livres':
+        case 'All-livres':
             $livreController = new LivreController();
             $livreController->showAllLivres();
         break;
-                case 'detaillivre':
+        case 'detaillivre':
             $livreController = new LivreController();
             $livreController->showLivre();
         break;
@@ -42,7 +44,7 @@ try {
         case 'updateLivre':
             $livreController = new LivreController();
             $livreController->updateLivre();
-            break;
+        break;
 
             
 
